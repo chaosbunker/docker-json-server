@@ -1,12 +1,16 @@
-FROM node:latest
-MAINTAINER Christian Lück <christian@lueck.tv>
+FROM node:alpine
+MAINTAINER Dennis Rodewyk <ufo@chaosbunker.com>
 
 RUN npm install -g json-server
 
 WORKDIR /data
+
 VOLUME /data
 
-EXPOSE 80
+EXPOSE 3000
+
 ADD run.sh /run.sh
-ENTRYPOINT ["bash", "/run.sh"]
+
+ENTRYPOINT ["sh", "/run.sh"]
+
 CMD []

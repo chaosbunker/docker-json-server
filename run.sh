@@ -1,19 +1,17 @@
-#!/bin/bash
+#!/bin/sh
 
-args="$@"
+args="$@ -H 0.0.0.0"
 
-args="$@ -p 80"
-
-file=/data/db.json
-if [ -f $file ]; then
-    echo "Found db.json, trying to open"
+if [ -f /data/db.json ]; then
     args="$args db.json"
 fi
 
-file=/data/file.js
-if [ -f $file ]; then
-    echo "Found file.js seed file, trying to open"
-    args="$args file.js"
+if [ -f /data/auth.js ]; then
+    args="$args --middlewares auth.js"
+fi
+
+if [ -f /data/routes.json ]; then
+    args="$args --routes routes.json"
 fi
 
 json-server $args
