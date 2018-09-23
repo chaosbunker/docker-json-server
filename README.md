@@ -12,9 +12,10 @@ docker build -t chaosbunker/json-server .
 This docker image is also available as a [trusted build on the docker index](https://index.docker.io/u/chaosbunker/json-server),
 so there's no setup required.
 
+Place your db.json (and optional: auth.js, routes.json) in a directory and mount it as a volume to /app/data in the container. All three files will automatically be loaded by json-server.
 
 ```bash
-$ docker run -d -p 3000:3000 -v /abs/path/to/db.json:/data/db.json chaosbunker/json-server
+$ docker run -d -p 3000:3000 -v /abs/path/to/dir:/app/data chaosbunker/json-server
 ```
 
 The above example exposes the JSON Server REST API on port 3000, so that you can now browse to:
@@ -23,19 +24,15 @@ The above example exposes the JSON Server REST API on port 3000, so that you can
 http://localhost:3000/
 ```
 
-### Help
-
 You can supply any number of JSON Server arguments that will be passed through unmodified.
 
 ```bash
 $ docker run -it --rm chaosbunker/json-server --help
 ```
 
-### auth.js
+### auth.js example
 
-If you mount a file to `/data/auth.js` it will automatically be loaded.
-
-The following example require a HTTP Header for GET requests and a second one for any other request method
+The following example requires an HTTP Header for GET requests and a second one for any other request method
 
 ```javascript
 module.exports = (req, res, next) => {
@@ -46,10 +43,6 @@ module.exports = (req, res, next) => {
 		next();
 	}
 ```
-
-### routes.conf
-
-If you mount a file to `/data/routes.conf` it will automatically loaded.
 
 ### dockerbunker
 
