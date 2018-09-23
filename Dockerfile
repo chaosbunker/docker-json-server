@@ -3,9 +3,9 @@ MAINTAINER Dennis Rodewyk <ufo@chaosbunker.com>
 
 RUN npm install -g json-server
 
-WORKDIR /data
+WORKDIR /json-server/data
 
-VOLUME /data
+VOLUME /json-server
 
 EXPOSE 3000
 
